@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Doğum Günün Kutlu Olsun</title>
+    <style>
+        body {
+            font-family: 'Comic Sans MS', sans-serif;
+            background-color: #0033a0; /* Fenerbahçe'nin mavi rengi */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            color: #fff; /* Beyaz yazı */
+            overflow: hidden;
+            position: relative;
+        }
+        .container {
+            text-align: center;
+            background-color: #ffdd00; /* Fenerbahçe'nin sarı rengi */
+            padding: 50px;
+            border-radius: 20px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+            max-width: 600px;
+            position: relative;
+            z-index: 2;
+        }
+        h1 {
+            color: #0033a0; /* Mavi yazı */
+            font-size: 36px;
+            margin-bottom: 20px;
+        }
+        p {
+            color: #0033a0; /* Mavi yazı */
+            font-size: 20px;
+            margin-bottom: 40px;
+        }
+        .container img {
+            max-width: 100px;
+            margin-bottom: 20px;
+        }
+        .photos {
+            display: flex;
+            justify-content: space-between;
+            position: absolute;
+            top: 20%;
+            left: 0;
+            right: 0;
+            margin: 0 20px;
+        }
+        .photos-left, .photos-right {
+            display: flex;
+            flex-direction: column;
+        }
+        .photos img {
+            max-width: 120px; /* Fotoğrafların boyutunu büyüttük */
+            margin: 10px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+        }
+        .balloons {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            pointer-events: none;
+        }
+        .balloon {
+            position: absolute;
+            width: 50px;
+            height: 70px;
+            border-radius: 50%;
+            opacity: 0.8;
+            animation: float 10s infinite;
+        }
+        .balloon::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 2px;
+            height: 20px;
+        }
+        @keyframes float {
+            0% { transform: translateX(0) translateY(0); opacity: 0.8; }
+            50% { opacity: 1; }
+            100% { transform: translateX(50px) translateY(-110vh); opacity: 0; }
+        }
+        .balloon.left { left: 10%; }
+        .balloon.right { left: 90%; }
+        .play-button, .stop-button, .restart-button {
+            background-color: #ffdd00; /* Fenerbahçe'nin sarı rengi */
+            border: none;
+            color: #0033a0; /* Mavi yazı */
+            padding: 10px 20px;
+            font-size: 20px;
+            border-radius: 10px;
+            cursor: pointer;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+            margin: 5px;
+            position: relative;
+            z-index: 2;
+        }
+        .play-button:hover, .stop-button:hover, .restart-button:hover {
+            background-color: #0033a0;
+            color: #ffdd00;
+        }
+        .video-container {
+            margin: 20px auto; /* Ortalaması için */
+            border: 5px solid #ffdd00; /* Sarı çerçeve */
+            border-radius: 10px;
+            overflow: hidden;
+            width: 300px; /* Video genişliği */
+            height: 200px; /* Video yüksekliği */
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        }
+        video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <img src="fenerbahce_logo.png" alt="Fenerbahçe Logosu">
+        <h1>Doğum Günün Kutlu Olsun Yusuf Yiğit Varçin!</h1>
+        <p>Bu özel günde en içten dileklerimle, seni çok seviyorum!</p>
+        <div class="video-container">
+            <video autoplay loop muted>
+                <source src="yusuf_dans.mp4" type="video/mp4">
+                Tarayıcınız bu videoyu desteklemiyor.
+            </video>
+        </div>
+        <button class="play-button" onclick="playMusic()">Müziği Başlat</button>
+        <button class="stop-button" onclick="stopMusic()">Müziği Durdur</button>
+        <button class="restart-button" onclick="restartMusic()">Müziği Yeniden Başlat</button>
+    </div>
+    <div class="photos">
+        <div class="photos-left">
+            <img src="yusuf1.jpg" alt="Yusuf Fotoğraf 1">
+            <img src="yusuf2.jpg" alt="Yusuf Fotoğraf 2">
+            <img src="yusuf3.jpg" alt="Yusuf Fotoğraf 3">
+        </div>
+        <div class="photos-right">
+            <img src="yusuf4.jpg" alt="Yusuf Fotoğraf 4">
+            <img src="yusuf5.jpg" alt="Yusuf Fotoğraf 5">
+            <img src="yusuf6.jpg" alt="Yusuf Fotoğraf 6">
+        </div>
+    </div>
+    <div class="balloons"></div>
+    <audio id="background-music" loop>
+        <source src="iyi_ki_dogdun_yusuf.mp3" type="audio/mpeg">
+        Tarayıcınız bu sesi çalmayı desteklemiyor.
+    </audio>
+    <script>
+        const music = document.getElementById('background-music');
+
+        function playMusic() {
+            music.play();
+        }
+
+        function stopMusic() {
+            music.pause();
+        }
+
+        function restartMusic() {
+            music.currentTime = 0;
+            music.play();
+        }
+
+        function randomColor() {
+            const colors = ['#ff0000', '#00ff00', '#0000ff', '#ff00ff', '#00ffff', '#ffff00', '#ff8800', '#ff0088', '#8800ff', '#0088ff'];
+            return colors[Math.floor(Math.random() * colors.length)];
+        }
+
+        function createBalloons() {
+            const balloonContainer = document.querySelector('.balloons');
+
+            for (let i = 0; i < 15; i++) {
+                const balloon = document.createElement('div');
+                balloon.classList.add('balloon', i % 2 === 0 ? 'left' : 'right');
+                balloon.style.backgroundColor = randomColor();
+                balloon.style.left = `${Math.random() * 100}%`;
+                balloon.style.top = `${Math.random() * 100}%`;
+                balloon.style.animationDuration = `${Math.random() * 6 + 5}s`;
+                balloonContainer.appendChild(balloon);
+            }
+        }
+
+        window.onload = createBalloons;
+    </script>
+</body>
+</html>
